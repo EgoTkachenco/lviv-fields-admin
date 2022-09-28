@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plantations",
+  "info": {
+    "name": "Plantation"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "variety": {
+      "model": "variety"
+    },
+    "size": {
+      "type": "float"
+    },
+    "field": {
+      "via": "plantations",
+      "model": "field"
+    }
+  }
+}

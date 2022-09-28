@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/varieties",
+      "handler": "variety.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/varieties/count",
+      "handler": "variety.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/varieties/:id",
+      "handler": "variety.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/varieties",
+      "handler": "variety.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/varieties/:id",
+      "handler": "variety.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/varieties/:id",
+      "handler": "variety.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

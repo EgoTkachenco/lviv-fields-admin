@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fields",
+  "info": {
+    "name": "Field",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pathname": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "owned",
+        "rented",
+        "risk"
+      ],
+      "required": false
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "free",
+        "planted",
+        "uprooted"
+      ],
+      "required": false
+    },
+    "cadastr": {
+      "type": "string"
+    },
+    "size": {
+      "type": "decimal"
+    },
+    "area": {
+      "via": "fields",
+      "model": "area"
+    },
+    "location": {
+      "type": "string"
+    },
+    "owner_fullname": {
+      "type": "string"
+    },
+    "owner_phone": {
+      "type": "string"
+    },
+    "owner_mail": {
+      "type": "string"
+    },
+    "owner_note": {
+      "type": "text"
+    },
+    "owner_birthdate": {
+      "type": "date"
+    },
+    "owner_address": {
+      "type": "string"
+    },
+    "contract_name": {
+      "type": "string"
+    },
+    "contract_start": {
+      "type": "date"
+    },
+    "contract_due": {
+      "type": "date"
+    },
+    "contract_note": {
+      "type": "text"
+    },
+    "plantations": {
+      "collection": "plantation",
+      "via": "field"
+    }
+  }
+}

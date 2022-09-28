@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "areas",
+  "info": {
+    "name": "Area"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "fields": {
+      "via": "area",
+      "collection": "field"
+    },
+    "fields_on_map_count": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "varieties",
+  "info": {
+    "name": "Variety"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}
