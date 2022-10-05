@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "landlords_registries",
+  "info": {
+    "name": "Landlords registry",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "field": {
+      "type": "string"
+    },
+    "landlord_by_public_cadastral": {
+      "type": "string"
+    },
+    "cadastr": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    },
+    "contract_date": {
+      "type": "date"
+    },
+    "lease_term": {
+      "type": "string"
+    },
+    "lease_term_in_contract": {
+      "type": "string"
+    },
+    "percent": {
+      "type": "string"
+    },
+    "owner_dismatch": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "sublease_MRIA_FARMING": {
+      "type": "string"
+    },
+    "sublease_Colodiy_Mykola": {
+      "type": "string"
+    },
+    "state_registration_date": {
+      "type": "date"
+    },
+    "assessment_date": {
+      "type": "date"
+    },
+    "sum": {
+      "type": "string"
+    }
+  }
+}

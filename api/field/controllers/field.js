@@ -1,5 +1,6 @@
 "use strict";
 const { sanitizeEntity } = require("strapi-utils");
+const _ = require("lodash");
 
 module.exports = {
   async findOne(ctx) {
@@ -7,7 +8,13 @@ module.exports = {
 
     const entity = await strapi
       .query("field")
-      .findOne({ pathname: id }, ["plantations", "plantations.variety"]);
+      .findOne({ pathname: id }, [
+        "plantations",
+        "plantations.variety",
+        "owner_files",
+        "owner_avatar",
+        "contract_files",
+      ]);
 
     return sanitizeEntity(entity, { model: strapi.models.field });
   },
@@ -46,10 +53,15 @@ module.exports = {
     //   });
     // } else {
     // }
-
     entity = await strapi
       .query("field")
-      .findOne({ pathname: id }, ["plantations", "plantations.variety"]);
+      .findOne({ pathname: id }, [
+        "plantations",
+        "plantations.variety",
+        "owner_files",
+        "owner_avatar",
+        "contract_files",
+      ]);
     return sanitizeEntity(entity, { model: strapi.models.field });
   },
   async summary(ctx) {
@@ -57,6 +69,15 @@ module.exports = {
     if (ctx.query.type_in) ctx.query.type_in = ctx.query.type_in.split(",");
     if (ctx.query.category_in)
       ctx.query.category_in = ctx.query.category_in.split(",");
+
+    if (ctx.query.varieties_in) {
+      const varieties = ctx.query.varieties_in.split(",");
+      delete ctx.query.varieties_in;
+      let plantations = await strapi
+        .query("plantation")
+        .find({ _limit: -1, variety_in: varieties }, []);
+      ctx.query.id_in = _.uniq(plantations.map((p) => p.field));
+    }
 
     const fields = await strapi.query("field").find(ctx.query);
     const stats = fields.reduce(

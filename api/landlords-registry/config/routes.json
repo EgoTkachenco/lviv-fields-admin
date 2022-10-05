@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/landlords-registries",
+      "handler": "landlords-registry.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/landlords-registries/count",
+      "handler": "landlords-registry.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/landlords-registries/:id",
+      "handler": "landlords-registry.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/landlords-registries",
+      "handler": "landlords-registry.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/landlords-registries/:id",
+      "handler": "landlords-registry.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/landlords-registries/:id",
+      "handler": "landlords-registry.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
