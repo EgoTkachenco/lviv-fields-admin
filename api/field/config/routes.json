@@ -18,14 +18,6 @@
     },
     {
       "method": "GET",
-      "path": "/fields/:area/summary",
-      "handler": "field.areaSummary",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
       "path": "/fields/count",
       "handler": "field.count",
       "config": {

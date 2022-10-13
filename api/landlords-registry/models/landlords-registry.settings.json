@@ -56,6 +56,57 @@
     },
     "sum": {
       "type": "string"
+    },
+    "area": {
+      "type": "string"
+    },
+    "identifier": {
+      "type": "string"
+    },
+    "plant_year": {
+      "type": "string"
+    },
+    "state_act_number": {
+      "type": "string"
+    },
+    "state_act_date": {
+      "type": "date"
+    },
+    "field_type": {
+      "type": "string"
+    },
+    "passport": {
+      "type": "string"
+    },
+    "passport_who": {
+      "type": "string"
+    },
+    "passport_date": {
+      "type": "date"
+    },
+    "identifier_code": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "note_2": {
+      "type": "string"
+    },
+    "additional_relation": {
+      "type": "string"
+    },
+    "additional_passport": {
+      "type": "string"
+    },
+    "additional_name": {
+      "type": "string"
+    },
+    "additional_code": {
+      "type": "string"
+    },
+    "additional_phone": {
+      "type": "string"
     }
   }
 }

@@ -79,8 +79,8 @@
       "type": "text"
     },
     "plantations": {
-      "collection": "plantation",
-      "via": "field"
+      "via": "field",
+      "collection": "plantation"
     },
     "owner_files": {
       "collection": "file",
@@ -117,6 +117,9 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "contract_term": {
+      "type": "integer"
     }
   }
 }

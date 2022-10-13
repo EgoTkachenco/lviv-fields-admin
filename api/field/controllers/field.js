@@ -1,6 +1,7 @@
 "use strict";
 const { sanitizeEntity } = require("strapi-utils");
 const _ = require("lodash");
+const moment = require("date-fns");
 
 module.exports = {
   async findOne(ctx) {
@@ -32,6 +33,11 @@ module.exports = {
     if (!body.contract_start) delete body.contract_start;
     if (!body.contract_due) delete body.contract_due;
 
+    if (body.contract_start && body.contract_due)
+      body.contract_term =
+        new Date(body.contract_due).getFullYear() -
+        new Date(body.contract_start).getFullYear();
+
     if (!body.size) delete body.size;
 
     const field = await strapi.services.field.findOne({ pathname: id });
@@ -46,13 +52,6 @@ module.exports = {
       entity = await strapi.services.field.create(ctx.request.body);
     }
 
-    // if (ctx.is('multipart')) {
-    //   const { data, files } = parseMultipartData(ctx);
-    //   entity = await strapi.services.field.update({ id }, data, {
-    //     files,
-    //   });
-    // } else {
-    // }
     entity = await strapi
       .query("field")
       .findOne({ pathname: id }, [
@@ -65,25 +64,71 @@ module.exports = {
     return sanitizeEntity(entity, { model: strapi.models.field });
   },
   async summary(ctx) {
-    console.log(ctx.query);
-    if (ctx.query.type_in) ctx.query.type_in = ctx.query.type_in.split(",");
-    if (ctx.query.category_in)
-      ctx.query.category_in = ctx.query.category_in.split(",");
+    let query = _.pick(ctx.query, [
+      "area_in",
+      "type_in",
+      "category_in",
+      "varieties_in",
+      "contract_term_gte",
+      "contract_term_lte",
+      "plantation_year_gte",
+      "plantation_year_lte",
+    ]);
+    let isVariety = false;
+    if (query.type_in) query.type_in = query.type_in.split(",");
+    if (query.category_in) query.category_in = query.category_in.split(",");
 
-    if (ctx.query.varieties_in) {
+    let is_plantations_filter = false;
+    let plantation_filter = { _limit: -1 };
+
+    if (query.varieties_in) {
+      isVariety = true;
       const varieties = ctx.query.varieties_in.split(",");
-      delete ctx.query.varieties_in;
-      let plantations = await strapi
-        .query("plantation")
-        .find({ _limit: -1, variety_in: varieties }, []);
-      ctx.query.id_in = _.uniq(plantations.map((p) => p.field));
+      delete query.varieties_in;
+      is_plantations_filter = true;
+      plantation_filter.variety_in = varieties;
+    }
+    if (query.plantation_year_gte) {
+      is_plantations_filter = true;
+      plantation_filter.year_gte = query.plantation_year_gte;
+      delete query.plantation_year_gte;
+    }
+    if (query.plantation_year_lte) {
+      is_plantations_filter = true;
+      plantation_filter.year_lte = query.plantation_year_lte;
+      delete query.plantation_year_lte;
     }
 
-    const fields = await strapi.query("field").find(ctx.query);
+    if (is_plantations_filter) {
+      let plantations = await strapi
+        .query("plantation")
+        .find(plantation_filter, []);
+      query.id_in = _.uniq(plantations.map((p) => p.field));
+    }
+
+    let varieties = {};
+    const fields = await strapi
+      .query("field")
+      .find(query, ["plantations", "plantations.variety"]);
     const stats = fields.reduce(
       (acc, field) => {
         if (!acc[field.type]) {
           acc[field.type] = 0;
+        }
+        if (isVariety) {
+          field.plantations.forEach((plantation) => {
+            if (
+              !plantation_filter.variety_in.includes(
+                plantation.variety.id.toString()
+              )
+            )
+              return;
+            if (varieties[plantation.variety.name]) {
+              varieties[plantation.variety.name] += plantation.size;
+            } else {
+              varieties[plantation.variety.name] = plantation.size;
+            }
+          });
         }
         acc[field.type] += field.size;
         acc.all += field.size;
@@ -92,7 +137,12 @@ module.exports = {
       { all: 0 }
     );
 
-    return { ...stats, fields: fields.map((field) => field.pathname) };
+    const isFilter =
+      Object.keys(query).filter((key) => key !== "area").length > 0;
+    return {
+      ...stats,
+      fields: isFilter ? fields.map((field) => field.pathname) : [],
+      varieties: isVariety ? varieties : {},
+    };
   },
-  async areaSummary(ctx) {},
 };
