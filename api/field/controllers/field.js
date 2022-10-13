@@ -136,9 +136,9 @@ module.exports = {
       },
       { all: 0 }
     );
-
     const isFilter =
-      Object.keys(query).filter((key) => key !== "area").length > 0;
+      Object.keys(query).filter((key) => !["area_in", "_limit"].includes(key))
+        .length > 0;
     return {
       ...stats,
       fields: isFilter ? fields.map((field) => field.pathname) : [],
