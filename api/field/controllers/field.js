@@ -74,6 +74,7 @@ module.exports = {
       "plantation_year_gte",
       "plantation_year_lte",
     ]);
+    query._limit = -1;
     let isVariety = false;
     if (query.type_in) query.type_in = query.type_in.split(",");
     if (query.category_in) query.category_in = query.category_in.split(",");
