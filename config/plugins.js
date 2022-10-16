@@ -3,12 +3,13 @@ module.exports = ({ env }) => ({
     provider: "smtp",
     providerOptions: {
       host: process.env.ADMIN_EMAIL_HOST,
-      port: "587",
-      secure: false,
+      port: "465",
+      secure: true,
       username: process.env.ADMIN_EMAIL,
       password: process.env.ADMIN_EMAIL_PASSWORD,
       rejectUnauthorized: false,
       rejectTLS: false,
+      requireTLS: false,
       connectionTimeout: 1,
     },
     settings: {

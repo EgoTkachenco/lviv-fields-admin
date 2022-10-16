@@ -69,8 +69,8 @@ module.exports = {
       "type_in",
       "category_in",
       "varieties_in",
-      "contract_term_gte",
-      "contract_term_lte",
+      "contract_start_gte",
+      "contract_due_lte",
       "plantation_year_gte",
       "plantation_year_lte",
     ]);

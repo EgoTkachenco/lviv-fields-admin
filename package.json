@@ -23,7 +23,8 @@
     "strapi-plugin-upload": "3.6.8",
     "strapi-plugin-users-permissions": "3.6.8",
     "strapi-provider-email-smtp": "^1.0.3",
-    "strapi-utils": "3.6.8"
+    "strapi-utils": "3.6.8",
+    "xlsx": "^0.18.5"
   },
   "author": {
     "name": "A Strapi developer"
