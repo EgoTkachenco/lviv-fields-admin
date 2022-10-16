@@ -24,7 +24,7 @@ module.exports = {
     let body = ctx.request.body;
     if (!body.area) return ctx.badRequest("area required");
 
-    const area = await strapi.services.area.findOne({ name: body.area });
+    const area = await strapi.services.area.findOne({ pathname: body.area });
     if (!area) return ctx.badRequest("area not found");
 
     body.area = area.id;
@@ -40,7 +40,7 @@ module.exports = {
 
     if (!body.size) delete body.size;
 
-    const field = await strapi.services.field.findOne({ pathname: id });
+    const field = await strapi.services.field.findOne({ path: id });
     let entity;
 
     if (field) {
@@ -76,6 +76,7 @@ module.exports = {
     ]);
     query._limit = -1;
     let isVariety = false;
+    let area = null;
     if (query.type_in) query.type_in = query.type_in.split(",");
     if (query.category_in) query.category_in = query.category_in.split(",");
 
@@ -98,6 +99,11 @@ module.exports = {
       is_plantations_filter = true;
       plantation_filter.year_lte = query.plantation_year_lte;
       delete query.plantation_year_lte;
+    }
+
+    if (query.area_in) {
+      area = await strapi.query("area").findOne({ path: query.area_in });
+      query.area_in = area.id;
     }
 
     if (is_plantations_filter) {
@@ -144,6 +150,7 @@ module.exports = {
       ...stats,
       fields: isFilter ? fields.map((field) => field.pathname) : [],
       varieties: isVariety ? varieties : {},
+      area,
     };
   },
 };
