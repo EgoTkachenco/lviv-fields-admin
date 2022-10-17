@@ -1,9 +1,5 @@
 "use strict";
-
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
- */
+const { sanitizeEntity } = require("strapi-utils");
 
 const date_keys = [
   "contract_date",
@@ -14,6 +10,23 @@ const date_keys = [
 ];
 
 module.exports = {
+  async find(ctx) {
+    let entities;
+    const search = ctx.query.search;
+    delete ctx.query.search;
+
+    entities = await strapi.services["landlords-registry"].find(ctx.query);
+    if (search)
+      entities = entities.filter(
+        (el) =>
+          el.landlord_by_public_cadastral.toLowerCase().search(search) !== -1 ||
+          el.cadastr.toLowerCase().search(search) !== -1
+      );
+
+    return entities.map((entity) =>
+      sanitizeEntity(entity, { model: strapi.models["landlords-registry"] })
+    );
+  },
   async exportFromFile(ctx) {
     const data = require("../../../public/output.json");
     for (let i = 0; i < data.length; i++) {
