@@ -4,8 +4,8 @@ const { sanitizeEntity } = require("strapi-utils");
 module.exports = {
   async find(ctx) {
     let entities;
-    const user = ctx.state.user;
-    if (user.role.name !== "Admin") ctx.query.users_in = user.id;
+    // const user = ctx.state.user;
+    // if (user.role.name !== "Admin") ctx.query.users_in = user.id;
     if (ctx.query._q) {
       entities = await strapi.services.task.search(ctx.query);
     } else {
@@ -25,7 +25,17 @@ module.exports = {
     });
     return sanitizeEntity(entity, { model: strapi.models.task });
   },
-
+  async create(ctx) {
+    let entity;
+    ctx.request.body.users = [ctx.state.user.id];
+    if (ctx.is("multipart")) {
+      const { data, files } = parseMultipartData(ctx);
+      entity = await strapi.services.task.create(data, { files });
+    } else {
+      entity = await strapi.services.task.create(ctx.request.body);
+    }
+    return sanitizeEntity(entity, { model: strapi.models.task });
+  },
   async addMember(ctx) {
     const { id } = ctx.params;
     const { memberId } = ctx.request.body;
