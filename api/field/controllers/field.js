@@ -24,7 +24,7 @@ module.exports = {
     let body = ctx.request.body;
     if (!body.area) return ctx.badRequest("area required");
 
-    const area = await strapi.services.area.findOne({ pathname: body.area });
+    const area = await strapi.services.area.findOne({ path: body.area });
     if (!area) return ctx.badRequest("area not found");
 
     body.area = area.id;
@@ -40,7 +40,7 @@ module.exports = {
 
     if (!body.size) delete body.size;
 
-    const field = await strapi.services.field.findOne({ path: id });
+    const field = await strapi.services.field.findOne({ pathname: id });
     let entity;
 
     if (field) {
