@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/landlords-registries/map",
+      "handler": "landlords-registry.findOnMap",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/landlords-registries/export",
       "handler": "landlords-registry.exportFromFile",
       "config": {

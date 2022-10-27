@@ -68,6 +68,7 @@ module.exports = {
       "area_in",
       "type_in",
       "category_in",
+      "cadastr_in",
       "varieties_in",
       "contract_start_gte",
       "contract_due_lte",
@@ -79,6 +80,7 @@ module.exports = {
     let area = null;
     if (query.type_in) query.type_in = query.type_in.split(",");
     if (query.category_in) query.category_in = query.category_in.split(",");
+    if (query.cadastr_in) query.cadastr_in = query.cadastr_in.split(",");
 
     let is_plantations_filter = false;
     let plantation_filter = { _limit: -1 };
