@@ -155,4 +155,11 @@ module.exports = {
       area,
     };
   },
+  async export(ctx) {
+    try {
+      return await strapi.services.field.exportFields();
+    } catch (error) {
+      console.log(error.messase);
+    }
+  },
 };

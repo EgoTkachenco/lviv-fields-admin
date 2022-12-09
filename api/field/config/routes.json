@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/fields/export",
+      "handler": "field.export",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/fields/count",
       "handler": "field.count",
       "config": {

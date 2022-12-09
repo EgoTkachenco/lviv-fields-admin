@@ -68,7 +68,7 @@ module.exports = {
     // });
     // return fields.map((field) => field.pathname);
   },
-  async exportFromFile(ctx) {
+  async importFromFile(ctx) {
     const data = require("../../../public/output.json");
     for (let i = 0; i < data.length; i++) {
       let element = data[i];

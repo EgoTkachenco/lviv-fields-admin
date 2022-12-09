@@ -26,8 +26,8 @@
     },
     {
       "method": "GET",
-      "path": "/landlords-registries/export",
-      "handler": "landlords-registry.exportFromFile",
+      "path": "/landlords-registries/import",
+      "handler": "landlords-registry.importFromFile",
       "config": {
         "policies": []
       }
