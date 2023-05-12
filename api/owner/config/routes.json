@@ -2,56 +2,56 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/plantations",
-      "handler": "plantation.find",
+      "path": "/owners",
+      "handler": "owner.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/plantations/count",
-      "handler": "plantation.count",
+      "path": "/owners/count",
+      "handler": "owner.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/plantations/export",
-      "handler": "plantation.exportToXLSX",
+      "path": "/owners/export",
+      "handler": "owner.exportToXLSX",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/plantations/:id",
-      "handler": "plantation.findOne",
+      "path": "/owners/:id",
+      "handler": "owner.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/plantations",
-      "handler": "plantation.create",
+      "path": "/owners",
+      "handler": "owner.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/plantations/:id",
-      "handler": "plantation.update",
+      "path": "/owners/:id",
+      "handler": "owner.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/plantations/:id",
-      "handler": "plantation.delete",
+      "path": "/owners/:id",
+      "handler": "owner.delete",
       "config": {
         "policies": []
       }

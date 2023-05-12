@@ -8,9 +8,8 @@
 module.exports = {
   async exportToXLSX(ctx) {
     try {
-      return await strapi.services.export.exportPlantations(ctx.query);
+      return await strapi.services.export.exportOwners(ctx.query);
     } catch (error) {
-      console.log("error");
       console.log(error);
     }
   },

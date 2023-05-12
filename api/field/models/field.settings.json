@@ -22,7 +22,7 @@
       "enum": [
         "owned",
         "rented",
-        "risk"
+        "subrent"
       ],
       "required": false
     },
@@ -36,7 +36,9 @@
       "required": false
     },
     "cadastr": {
-      "type": "string"
+      "type": "string",
+      "required": false,
+      "unique": true
     },
     "size": {
       "type": "decimal"
@@ -48,25 +50,18 @@
     "location": {
       "type": "string"
     },
-    "owner_fullname": {
-      "type": "string"
+    "plantations": {
+      "via": "field",
+      "collection": "plantation"
     },
-    "owner_phone": {
-      "type": "string"
-    },
-    "owner_mail": {
-      "type": "string"
-    },
-    "owner_note": {
-      "type": "text"
-    },
-    "owner_birthdate": {
-      "type": "date"
-    },
-    "owner_address": {
-      "type": "string"
+    "owners": {
+      "via": "field",
+      "collection": "owner"
     },
     "contract_name": {
+      "type": "string"
+    },
+    "contract_note": {
       "type": "string"
     },
     "contract_start": {
@@ -75,14 +70,10 @@
     "contract_due": {
       "type": "date"
     },
-    "contract_note": {
-      "type": "text"
+    "contract_term": {
+      "type": "integer"
     },
-    "plantations": {
-      "via": "field",
-      "collection": "plantation"
-    },
-    "owner_files": {
+    "files": {
       "collection": "file",
       "via": "related",
       "allowedTypes": [
@@ -94,7 +85,7 @@
       "required": false,
       "pluginOptions": {}
     },
-    "contract_files": {
+    "owner_files": {
       "collection": "file",
       "via": "related",
       "allowedTypes": [
@@ -118,8 +109,23 @@
       "required": false,
       "pluginOptions": {}
     },
-    "contract_term": {
-      "type": "integer"
+    "contract_files": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "plant_year": {
+      "type": "string"
+    },
+    "harvest": {
+      "type": "string"
     }
   }
 }

@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "owners",
+  "info": {
+    "name": "Owner",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "full_name": {
+      "type": "string"
+    },
+    "birth_date": {
+      "type": "date"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "note": {
+      "type": "text"
+    },
+    "field": {
+      "via": "owners",
+      "model": "field"
+    },
+    "isCurrentOwner": {
+      "type": "boolean",
+      "default": false
+    },
+    "avatar": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "cadastr": {
+      "type": "string"
+    },
+    "passport": {
+      "type": "string"
+    },
+    "iin": {
+      "type": "string"
+    },
+    "passport_who": {
+      "type": "string"
+    },
+    "passport_date": {
+      "type": "string"
+    }
+  }
+}

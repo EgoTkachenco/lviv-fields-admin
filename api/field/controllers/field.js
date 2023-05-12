@@ -1,21 +1,36 @@
 "use strict";
 const { sanitizeEntity } = require("strapi-utils");
 const _ = require("lodash");
-const moment = require("date-fns");
 
 module.exports = {
+  async find(ctx) {
+    let entities;
+    if (ctx.query._q) {
+      entities = await strapi.services.field.search(ctx.query);
+    } else {
+      entities = await strapi.services.field.find(ctx.query, [
+        "area",
+        "plantations",
+        "plantations.variety",
+      ]);
+    }
+
+    return entities.map((entity) =>
+      sanitizeEntity(entity, { model: strapi.models.field })
+    );
+  },
   async findOne(ctx) {
     const { id } = ctx.params;
 
-    const entity = await strapi
-      .query("field")
-      .findOne({ pathname: id }, [
-        "plantations",
-        "plantations.variety",
-        "owner_files",
-        "owner_avatar",
-        "contract_files",
-      ]);
+    const entity = await strapi.query("field").findOne({ pathname: id }, [
+      "plantations",
+      "plantations.variety",
+      // "owner_files",
+      // "owner_avatar",
+      // "contract_files",
+      "files",
+      "owners",
+    ]);
 
     return sanitizeEntity(entity, { model: strapi.models.field });
   },
@@ -28,7 +43,6 @@ module.exports = {
     if (!area) return ctx.badRequest("area not found");
 
     body.area = area.id;
-    if (!body.owner_birthdate) delete body.owner_birthdate;
 
     if (!body.contract_start) delete body.contract_start;
     if (!body.contract_due) delete body.contract_due;
@@ -52,15 +66,15 @@ module.exports = {
       entity = await strapi.services.field.create(ctx.request.body);
     }
 
-    entity = await strapi
-      .query("field")
-      .findOne({ pathname: id }, [
-        "plantations",
-        "plantations.variety",
-        "owner_files",
-        "owner_avatar",
-        "contract_files",
-      ]);
+    entity = await strapi.query("field").findOne({ pathname: id }, [
+      "plantations",
+      "plantations.variety",
+      // "owner_files",
+      // "owner_avatar",
+      // "contract_files",
+      "files",
+      "owners",
+    ]);
     return sanitizeEntity(entity, { model: strapi.models.field });
   },
   async summary(ctx) {
@@ -160,6 +174,14 @@ module.exports = {
       return await strapi.services.field.exportFields();
     } catch (error) {
       console.log(error.messase);
+    }
+  },
+  async exportToXLSX(ctx) {
+    try {
+      return await strapi.services.export.exportFields(ctx.query);
+    } catch (error) {
+      console.log("error");
+      console.log(error);
     }
   },
 };

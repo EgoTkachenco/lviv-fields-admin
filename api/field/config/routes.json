@@ -10,6 +10,14 @@
     },
     {
       "method": "GET",
+      "path": "/fields/export",
+      "handler": "field.exportToXLSX",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/fields/summary",
       "handler": "field.summary",
       "config": {
