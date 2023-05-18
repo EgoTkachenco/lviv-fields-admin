@@ -12,8 +12,7 @@
 
 module.exports = () => {
   // strapi.services.field.exportFields();
-  // migrationFields();
-  // migrationRegistry();
+  // migrationFields().then(() => migrationRegistry());
 };
 
 const migrationFields = async () => {
