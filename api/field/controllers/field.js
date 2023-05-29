@@ -37,12 +37,13 @@ module.exports = {
   async update(ctx) {
     const { id } = ctx.params;
     let body = ctx.request.body;
-    if (!body.area) return ctx.badRequest("area required");
 
-    const area = await strapi.services.area.findOne({ path: body.area });
-    if (!area) return ctx.badRequest("area not found");
-
-    body.area = area.id;
+    // if (!body.area) return ctx.badRequest("area required");
+    if (body.area) {
+      const area = await strapi.services.area.findOne({ path: body.area });
+      if (!area) return ctx.badRequest("area not found");
+      body.area = area.id;
+    }
 
     if (!body.contract_start) delete body.contract_start;
     if (!body.contract_due) delete body.contract_due;

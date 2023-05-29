@@ -126,6 +126,18 @@
     },
     "harvest": {
       "type": "string"
+    },
+    "repair": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "harvest_tier": {
+      "type": "string"
+    },
+    "area_size": {
+      "type": "string"
     }
   }
 }
