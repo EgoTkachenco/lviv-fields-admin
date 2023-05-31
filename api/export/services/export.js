@@ -2,6 +2,17 @@
 const xlsx = require("xlsx");
 const path = require("path");
 
+const FIELD_TYPES = {
+  owned: "Власні ділянки",
+  rented: "Орендовані ділянки",
+  subrent: "Cуборендовані ділянки",
+};
+
+const FIELD_CATEGORIES = {
+  free: "Вільні ділянки",
+  planted: "Засаджені ділянки",
+};
+
 const field_columns = [
   {
     name: "Кадастровий номер",
@@ -122,7 +133,12 @@ const getFilename = (name) =>
 
 module.exports = {
   async exportFields(query) {
-    const data = await strapi.query("field").find({ ...query, _limit: -1 }, []);
+    let data = await strapi.query("field").find({ ...query, _limit: -1 }, []);
+    data = data.map((el) => ({
+      ...el,
+      type: FIELD_TYPES[el.type],
+      category: FIELD_CATEGORIES[el.category],
+    }));
     const filename = getFilename("field");
     return await this.exportToFile(
       data,
