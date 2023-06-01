@@ -5,6 +5,14 @@ const _ = require("lodash");
 module.exports = {
   async find(ctx) {
     let entities;
+    if (ctx.query.location) {
+      const areas = await strapi.services.area.find({
+        name: ctx.query.location,
+      });
+      ctx.query.area_in = areas.map((el) => el.id);
+
+      delete ctx.query.location;
+    }
     if (ctx.query._q) {
       entities = await strapi.services.field.search(ctx.query);
     } else {
