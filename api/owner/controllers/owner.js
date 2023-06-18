@@ -35,6 +35,15 @@ module.exports = {
     const limit = ctx.query._limit;
     const start = ctx.query._start;
     delete ctx.query.search;
+
+    if (ctx.query.type) {
+      const fields = await strapi
+        .query("field")
+        .find({ _limit: -1, type: ctx.query.type });
+      delete ctx.query.type;
+      ctx.query.field_in = fields.map((f) => f.id);
+    }
+
     if (search) ctx.query._limit = -1;
     entities = await strapi.services.owner.find(ctx.query);
     if (search)
@@ -56,6 +65,15 @@ module.exports = {
     delete ctx.query.search;
     delete ctx.query._start;
     ctx.query._limit = -1;
+
+    if (ctx.query.type) {
+      const fields = await strapi
+        .query("field")
+        .find({ _limit: -1, type: ctx.query.type });
+      delete ctx.query.type;
+      ctx.query.field_in = fields.map((f) => f.id);
+    }
+
     entities = await strapi.services.owner.find(ctx.query);
     if (search)
       entities = entities.filter(
