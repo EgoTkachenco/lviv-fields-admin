@@ -28,6 +28,9 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "plantation_schema": {
+      "type": "json"
     }
   }
 }
