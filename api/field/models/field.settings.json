@@ -138,6 +138,11 @@
     },
     "area_size": {
       "type": "string"
+    },
+    "plantations_rows": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
     }
   }
 }
