@@ -1,10 +1,6 @@
 "use strict";
 const { sanitizeEntity } = require("strapi-utils");
 const _ = require("lodash");
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
- */
 
 module.exports = {
   async exportToXLSX(ctx) {
@@ -12,7 +8,8 @@ module.exports = {
       let entities;
       const search = ctx.query.search;
       delete ctx.query.search;
-      if (search) ctx.query._limit = -1;
+			// if (search)
+			ctx.query._limit = -1;
       entities = await strapi.services.owner.find(ctx.query);
       if (search)
         entities = entities.filter(
