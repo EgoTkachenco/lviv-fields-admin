@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "map_infos",
+  "info": {
+    "name": "Map info"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "size": {
+      "type": "float"
+    },
+    "plantation_size": {
+      "type": "float"
+    }
+  }
+}

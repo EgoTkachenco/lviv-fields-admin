@@ -37,6 +37,9 @@
     },
     "plantation_info": {
       "type": "json"
+    },
+    "plantation_size": {
+      "type": "float"
     }
   }
 }
